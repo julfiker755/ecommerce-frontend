@@ -1,15 +1,28 @@
-'use client';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Trash2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { QuantityInput } from '../quantity-input';
-import { useCart, type CartItem as CartItemType } from '@/context/cart';
-import { helpers } from '@/lib/helpers';
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import { Trash2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { QuantityInput } from "../quantity-input";
+import { useCart, type CartItem as CartItemType } from "@/context/cart";
+import { helpers } from "@/lib/helpers";
+import useConfirmation from "@/context/delete-modal";
 
 export function CartItem({ item }: { item: CartItemType }) {
+  const { confirm } = useConfirmation();
   const { updateQuantity, removeItem } = useCart();
-  const variant = [item.color, item.weight].filter(Boolean).join(' · ');
+  const variant = [item.color, item.weight].filter(Boolean).join(" · ");
+
+  const handleRemoveItem = async (key: string) => {
+    const confirmed = await confirm({
+      title: "Are you sure?",
+      description: "This action will delete this Product permanently.",
+    });
+
+    if (confirmed) {
+      removeItem(key);
+    }
+  };
 
   return (
     <li className="flex gap-3 sm:gap-4 py-4 first:pt-0 last:pb-0">
@@ -17,7 +30,13 @@ export function CartItem({ item }: { item: CartItemType }) {
         href={`/products/${item.slug}`}
         className="relative size-18 sm:size-20 shrink-0 overflow-hidden rounded-xl border border-border bg-muted"
       >
-        <Image src={item.image} alt={item.name} fill sizes="80px" className="object-cover" />
+        <Image
+          src={item.image}
+          alt={item.name}
+          fill
+          sizes="80px"
+          className="object-cover"
+        />
       </Link>
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
@@ -29,14 +48,16 @@ export function CartItem({ item }: { item: CartItemType }) {
             >
               {item.name}
             </Link>
-            {variant && <p className="mt-0.5 text-xs text-muted-foreground">{variant}</p>}
+            {variant && (
+              <p className="mt-0.5 text-xs text-muted-foreground">{variant}</p>
+            )}
           </div>
           <Button
             type="button"
             variant="destructive"
             size="icon-sm"
             aria-label={`Remove ${item.name}`}
-            onClick={() => removeItem(item.key)}
+            onClick={() => handleRemoveItem(item.key)}
           >
             <Trash2 />
           </Button>
@@ -49,7 +70,9 @@ export function CartItem({ item }: { item: CartItemType }) {
             onChange={(q) => updateQuantity(item.key, q)}
           />
           <div className="text-right">
-            <p className="font-bold text-primary">{helpers.currency(item.price * item.quantity)}</p>
+            <p className="font-bold text-primary">
+              {helpers.currency(item.price * item.quantity)}
+            </p>
             {item.quantity > 1 && (
               <p className="text-[11px] text-muted-foreground">
                 {helpers.currency(item.price)} each

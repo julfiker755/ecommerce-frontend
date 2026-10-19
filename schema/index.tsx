@@ -50,3 +50,30 @@ export const new_Pass = z
     message: "Passwords do not match",
     path: ["password_confirmation"],
   });
+
+//  === profile_Update ==
+export const profile_Update = z.object({
+  name: z.string().trim().nonempty("Full name is required"),
+  email: emailField,
+  phone: z
+    .string()
+    .nonempty("Phone number is required")
+    .regex(/^01[3-9]\d{8}$/, "Enter a valid 11 digit number"),
+  address: z.string().trim().nonempty("Address is required"),
+});
+
+//  === change_Pass ==
+export const change_Pass = z
+  .object({
+    current_password: z.string().nonempty("Current password is required"),
+    password: passwordField,
+    password_confirmation: z.string().nonempty("Confirm your password"),
+  })
+  .refine((v) => v.password === v.password_confirmation, {
+    message: "Passwords do not match",
+    path: ["password_confirmation"],
+  })
+  .refine((v) => v.password !== v.current_password, {
+    message: "New password must be different",
+    path: ["password"],
+  });

@@ -971,3 +971,143 @@ export const getCategory = (slug: string) => categories.find((c) => c.slug === s
 
 export const discountPercent = (price: number, oldPrice?: number) =>
   oldPrice && oldPrice > price ? Math.round(((oldPrice - price) / oldPrice) * 100) : 0;
+
+// ===== Profile & Orders (replace with API later) =====
+export const userProfile = {
+  name: 'Rahim Uddin',
+  email: 'rahim.uddin@example.com',
+  phone: '01712345678',
+  gender: 'Male',
+  birthday: '1995-06-14',
+  joinedAt: '2025-03-12',
+  address: {
+    line: 'House 12, Road 5, Block C',
+    thana: 'Banani',
+    district: 'Dhaka',
+  },
+};
+
+export type OrderStatus = 'pending' | 'accepted' | 'packed' | 'shipped' | 'delivered' | 'cancelled';
+
+export const orderSteps: { status: Exclude<OrderStatus, 'cancelled'>; label: string }[] = [
+  { status: 'pending', label: 'Pending' },
+  { status: 'accepted', label: 'Accepted' },
+  { status: 'packed', label: 'Packed' },
+  { status: 'shipped', label: 'Shipped' },
+  { status: 'delivered', label: 'Delivered' },
+];
+
+export interface OrderItem {
+  slug: string;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+  variant?: string;
+}
+
+export interface Order {
+  id: string;
+  placedAt: string;
+  status: OrderStatus;
+  payment: PaymentMethod;
+  deliveryCharge: number;
+  items: OrderItem[];
+  /** date each step was reached */
+  timeline: Partial<Record<OrderStatus, string>>;
+  address: string;
+}
+
+const orderItem = (slug: string, quantity: number, variant?: string): OrderItem => {
+  const p = products.find((x) => x.slug === slug)!;
+  return { slug, name: p.name, image: p.image, price: p.price, quantity, variant };
+};
+
+export const orders: Order[] = [
+  {
+    id: 'SB10482931',
+    placedAt: '2026-10-17T10:24:00',
+    status: 'pending',
+    payment: 'cod',
+    deliveryCharge: 60,
+    items: [orderItem('wild-forest-honey', 1, 'Golden · 1kg'), orderItem('classic-cotton-t-shirt', 2, 'Black · M')],
+    timeline: { pending: '2026-10-17T10:24:00' },
+    address: 'House 12, Road 5, Block C, Banani, Dhaka',
+  },
+  {
+    id: 'SB10482877',
+    placedAt: '2026-10-15T18:02:00',
+    status: 'accepted',
+    payment: 'cod',
+    deliveryCharge: 0,
+    items: [orderItem('true-wireless-earbuds', 1, 'Pearl White')],
+    timeline: { pending: '2026-10-15T18:02:00', accepted: '2026-10-15T19:30:00' },
+    address: 'House 12, Road 5, Block C, Banani, Dhaka',
+  },
+  {
+    id: 'SB10482650',
+    placedAt: '2026-10-12T09:15:00',
+    status: 'packed',
+    payment: 'cod',
+    deliveryCharge: 60,
+    items: [orderItem('shahi-garam-masala', 2, '250g'), orderItem('chinigura-aromatic-rice', 1, '5kg')],
+    timeline: {
+      pending: '2026-10-12T09:15:00',
+      accepted: '2026-10-12T10:05:00',
+      packed: '2026-10-13T11:40:00',
+    },
+    address: 'House 12, Road 5, Block C, Banani, Dhaka',
+  },
+  {
+    id: 'SB10482411',
+    placedAt: '2026-10-08T21:47:00',
+    status: 'shipped',
+    payment: 'cod',
+    deliveryCharge: 0,
+    items: [orderItem('smart-watch-active', 1, 'Midnight · 41mm'), orderItem('california-almonds', 1, '1kg')],
+    timeline: {
+      pending: '2026-10-08T21:47:00',
+      accepted: '2026-10-09T09:12:00',
+      packed: '2026-10-09T15:30:00',
+      shipped: '2026-10-10T08:20:00',
+    },
+    address: 'House 12, Road 5, Block C, Banani, Dhaka',
+  },
+  {
+    id: 'SB10481902',
+    placedAt: '2026-09-28T13:05:00',
+    status: 'delivered',
+    payment: 'cod',
+    deliveryCharge: 0,
+    items: [
+      orderItem('leather-biker-jacket', 1, 'Black · L'),
+      orderItem('slim-fit-denim-jeans', 1, 'Indigo · 32'),
+      orderItem('premium-assam-black-tea', 2),
+    ],
+    timeline: {
+      pending: '2026-09-28T13:05:00',
+      accepted: '2026-09-28T14:10:00',
+      packed: '2026-09-29T10:00:00',
+      shipped: '2026-09-29T17:45:00',
+      delivered: '2026-09-30T12:30:00',
+    },
+    address: 'House 12, Road 5, Block C, Banani, Dhaka',
+  },
+  {
+    id: 'SB10481555',
+    placedAt: '2026-09-20T16:40:00',
+    status: 'cancelled',
+    payment: 'cod',
+    deliveryCharge: 60,
+    items: [orderItem('himsagar-mango', 1)],
+    timeline: { pending: '2026-09-20T16:40:00', cancelled: '2026-09-20T18:00:00' },
+    address: 'House 12, Road 5, Block C, Banani, Dhaka',
+  },
+];
+
+export const getOrder = (id: string) => orders.find((o) => o.id === id);
+
+export const orderSubtotal = (order: Order) =>
+  order.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+export const orderTotal = (order: Order) => orderSubtotal(order) + order.deliveryCharge;

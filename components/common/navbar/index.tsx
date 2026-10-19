@@ -1,7 +1,7 @@
-'use client';
-import { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import {
   ChevronDown,
   Flame,
@@ -12,14 +12,14 @@ import {
   ShoppingBag,
   User,
   X,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { BrandLogo } from '../brand-logo';
-import { useCart } from '@/context/cart';
-import { categories, products } from '@/lib/data';
-import { helpers } from '@/lib/helpers';
-import { cn } from '@/lib/utils';
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { BrandLogo } from "../brand-logo";
+import { useCart } from "@/context/cart";
+import { categories} from "@/lib/data";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -91,15 +91,25 @@ function HeaderActions() {
 
   return (
     <div className="ml-auto flex items-center gap-1 sm:gap-2">
-      <Button variant="ghost" size="icon" className="hidden sm:inline-flex relative" aria-label="Wishlist">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="hidden sm:inline-flex relative"
+        aria-label="Wishlist"
+      >
         <Heart className="size-5" />
         <CountBadge value={wishlist.length} />
       </Button>
-       <Link href="/login">
-        <Button variant="ghost" size="icon" className="hidden sm:inline-flex" aria-label="Account">
-        <User className="size-5" />
-      </Button>
-        </Link>
+      <Link href="/login">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hidden sm:inline-flex"
+          aria-label="Account"
+        >
+          <User className="size-5" />
+        </Button>
+      </Link>
       <Button
         variant="soft"
         size="icon-lg"
@@ -109,39 +119,52 @@ function HeaderActions() {
         render={<Link href="/checkout" />}
       >
         <ShoppingBag className="size-5" />
-        <CountBadge value={count} className="-top-1.5 -right-1.5 ring-2 ring-card" />
+        <CountBadge
+          value={count}
+          className="-top-1.5 -right-1.5 ring-2 ring-card"
+        />
       </Button>
     </div>
   );
 }
 
-function CountBadge({ value, className }: { value: number; className?: string }) {
+function CountBadge({
+  value,
+  className,
+}: {
+  value: number;
+  className?: string;
+}) {
   if (!value) return null;
   return (
     <span
       className={cn(
-        'absolute -top-1 -right-1 grid place-items-center min-w-5 h-5 px-1 rounded-full bg-sale text-sale-foreground text-[10px] font-bold',
-        className
+        "absolute -top-1 -right-1 grid place-items-center min-w-5 h-5 px-1 rounded-full bg-sale text-sale-foreground text-[10px] font-bold",
+        className,
       )}
     >
-      {value > 99 ? '99+' : value}
+      {value > 99 ? "99+" : value}
     </span>
   );
 }
 
 // ===== Live search =====
 function LiveSearch({ className }: { className?: string }) {
-  const [query, setQuery] = useState('');
-  const results = query.trim()
-    ? products
-        .filter((p) => p.name.toLowerCase().includes(query.trim().toLowerCase()))
-        .slice(0, 6)
-    : [];
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  const onsubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    router.push(`/search?q=${encodeURIComponent(q)}`);
+    setQuery("");
+  };
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn("relative", className)}>
       <form
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={onsubmit}
         className="flex items-center h-11 rounded-full border-2 border-primary/80 bg-card pl-5 pr-1 focus-within:border-primary transition-colors"
       >
         <Input
@@ -151,44 +174,24 @@ function LiveSearch({ className }: { className?: string }) {
           className="h-full border-0 focus-visible:border-0 shadow-none"
         />
         {query && (
-          <Button type="button" variant="ghost" size="icon-xs" onClick={() => setQuery('')} aria-label="Clear">
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-xs"
+            onClick={() => setQuery("")}
+            aria-label="Clear"
+          >
             <X />
           </Button>
         )}
-        <Button type="submit" size="sm" className="rounded-full h-8.5 px-5 ml-1">
+        <Button
+          type="submit"
+          size="sm"
+          className="rounded-full h-8.5 px-5 ml-1"
+        >
           <Search /> <span className="hidden sm:inline">Search</span>
         </Button>
       </form>
-
-      {query.trim() && (
-        <div className="absolute inset-x-0 top-full mt-2 z-50 rounded-xl border border-border bg-popover shadow-xl overflow-hidden">
-          {results.length ? (
-            results.map((p) => (
-              <Link
-                key={p.id}
-                href={`/products/${p.slug}`}
-                onClick={() => setQuery('')}
-                className="flex items-center gap-3 px-4 py-2.5 hover:bg-muted border-b border-border last:border-0"
-              >
-                <Image src={p.image} alt={p.name} width={44} height={44} className="size-11 rounded-lg object-cover" />
-                <span className="flex-1 min-w-0">
-                  <span className="block truncate text-sm font-medium">{p.name}</span>
-                  <span className="text-sm font-semibold text-primary">
-                    {helpers.currency(p.price)}
-                    {p.oldPrice && (
-                      <del className="ml-2 text-xs font-normal text-muted-foreground">
-                        {helpers.currency(p.oldPrice)}
-                      </del>
-                    )}
-                  </span>
-                </span>
-              </Link>
-            ))
-          ) : (
-            <p className="p-4 text-center text-sm text-muted-foreground">No products found for “{query}”</p>
-          )}
-        </div>
-      )}
     </div>
   );
 }
@@ -207,7 +210,13 @@ function AllCategories() {
             href={`/#${cat.slug}`}
             className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-secondary hover:text-primary"
           >
-            <Image src={cat.image} alt={cat.name} width={28} height={28} className="size-7 rounded-full object-cover" />
+            <Image
+              src={cat.image}
+              alt={cat.name}
+              width={28}
+              height={28}
+              className="size-7 rounded-full object-cover"
+            />
             {cat.name}
           </Link>
         ))}
@@ -219,25 +228,42 @@ function AllCategories() {
 // ===== Mobile drawer =====
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   return (
-    <div className={cn('lg:hidden fixed inset-0 z-99999', open ? 'visible' : 'invisible')}>
+    <div
+      className={cn(
+        "lg:hidden fixed inset-0 z-99999",
+        open ? "visible" : "invisible",
+      )}
+    >
       <div
         onClick={onClose}
-        className={cn('absolute inset-0 bg-black/40 transition-opacity', open ? 'opacity-100' : 'opacity-0')}
+        className={cn(
+          "absolute inset-0 bg-black/40 transition-opacity",
+          open ? "opacity-100" : "opacity-0",
+        )}
       />
       <aside
         className={cn(
-          'absolute inset-y-0 left-0 w-80 max-w-[85%] bg-card shadow-2xl transition-transform duration-300 flex flex-col',
-          open ? 'translate-x-0' : '-translate-x-full'
+          "absolute inset-y-0 left-0 w-80 max-w-[85%] bg-card shadow-2xl transition-transform duration-300 flex flex-col",
+          open ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex items-center justify-between p-4 border-b border-border">
           <BrandLogo />
-          <Button variant="ghost" size="icon-sm" onClick={onClose} aria-label="Close menu">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            onClick={onClose}
+            aria-label="Close menu"
+          >
             <X />
           </Button>
         </div>
         <div className="flex-1 overflow-y-auto p-2">
-          <Link href="/" onClick={onClose} className="flex items-center gap-2 px-3 py-3 text-sm font-semibold text-sale">
+          <Link
+            href="/"
+            onClick={onClose}
+            className="flex items-center gap-2 px-3 py-3 text-sm font-semibold text-sale"
+          >
             <Flame className="size-4" /> Offer Zone
           </Link>
           {categories.map((cat) => (
@@ -247,7 +273,13 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
               onClick={onClose}
               className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm hover:bg-secondary"
             >
-              <Image src={cat.image} alt={cat.name} width={32} height={32} className="size-8 rounded-full object-cover" />
+              <Image
+                src={cat.image}
+                alt={cat.name}
+                width={32}
+                height={32}
+                className="size-8 rounded-full object-cover"
+              />
               {cat.name}
             </Link>
           ))}

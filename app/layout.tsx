@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 import { siteInfo } from "@/lib/data";
+import Provider from "@/context/provider";
 
 const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
 
@@ -31,8 +31,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", notoSans.variable, playfairDisplayHeading.variable)}
     >
       <body className="min-h-full flex flex-col">
-        {children}
-        <Toaster richColors closeButton />
+        <Provider>
+            {children}
+        </Provider>
       </body>
     </html>
   );

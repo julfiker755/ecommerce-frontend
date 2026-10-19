@@ -48,7 +48,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       )}
     >
       {/* ===== Media ===== */}
-      <div className="relative aspect-square overflow-hidden bg-muted">
+      <div className="relative aspect-4/3 overflow-hidden bg-muted">
         <Link href={href} aria-label={product.name}>
           <Image
             src={product.image}

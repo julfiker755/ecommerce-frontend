@@ -25,7 +25,7 @@ export function CircleBtn({ className, icon }: any) {
 export function PreviewBtn({ onClick, className }: btnProps) {
   return (
     <Button
-      className={cn("border border-border bg-transparent size-10", className)}
+      className={cn("border border-border bg-transparent size-10!", className)}
       onClick={onClick}
     >
       <FavIcon className="size-5" name="preview" />
