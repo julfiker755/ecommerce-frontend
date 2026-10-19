@@ -1,0 +1,133 @@
+import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode';
+import dayjs from 'dayjs';
+import { authKey, currencyConfig } from './constants';
+
+
+type dateFormat = 'DD/MM/YYYY' | 'DD-MM-YYYY' | 'DD MMM YYYY';
+// -- example --|--01-01-2023--|--2023-01-01--|--01 Jan 2023 --- YYYY-MM-DD
+
+export class helpers {
+  // ===== Cookies =====
+  static setAuthCookie(key: string, value: string): void {
+    Cookies.set(key, value);
+  }
+
+  static getAuthCookie(key: string): string | undefined {
+    return Cookies.get(key);
+  }
+
+  static removeAuthCookie(key: string): void {
+    Cookies.remove(key);
+  }
+
+  static hasAuthToken(): boolean {
+    return !!Cookies.get(authKey);
+  }
+
+  static decodeToken(token: string): any {
+    return jwtDecode(token);
+  }
+
+  // ===== Dates =====
+  static formatDate(
+    date: string | Date,
+    type: dateFormat = 'DD/MM/YYYY'
+  ): string {
+    return dayjs(date).format(type);
+  }
+
+  static formatTime(date: string | Date): string {
+    return dayjs(date).format('h:s A');
+  }
+
+  static formatDateTime(date: string | Date): string {
+    return dayjs(date).format('h:s A - DD MMM YYYY');
+  }
+
+  static planTime(time: string | Date): string {
+    return dayjs(`1970-01-01 ${time}`, 'YYYY-MM-DD HH:mm').format('hh:mm A');
+  }
+  static setAsycStorage(key: any, value: any): any {
+    return localStorage.setItem(key, value);
+  }
+
+  static getAsycStorage(key: string): string | null {
+    return localStorage.getItem(key);
+  }
+
+  static removeAsycStorage(key: string): void {
+    localStorage.removeItem(key);
+  }
+
+  // ===== Currency =====
+  // helpers.currency(1250)          -> ৳1,250
+  // helpers.currency(1250, 'code')  -> BDT 1,250
+  // helpers.currency(1250, 'name')  -> 1,250 Bangladeshi Taka
+  static currency(
+    amount: number,
+    display: 'symbol' | 'code' | 'name' = 'symbol'
+  ): string {
+    const { symbol, code, name, locale } = currencyConfig;
+    const value = Number(amount || 0).toLocaleString(locale);
+    if (display === 'code') return `${code} ${value}`;
+    if (display === 'name') return `${value} ${name}`;
+    return `${symbol}${value}`;
+  }
+
+  // ===== Strings =====
+  static capitalize(text: string): string {
+    if (!text) return '';
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+
+  static lowerCase(text: string): string {
+    return text ? text.toLowerCase() : '';
+  }
+
+  static upperCase(text: string): string {
+    return text ? text.toUpperCase() : '';
+  }
+  static camelCaseText(str: string): string {
+    return str ? str.replace(/_/g, ' ') : '';
+  }
+  static randomString(): string {
+    return crypto.randomUUID();
+  }
+  static randomNumber(): any {
+    return Math.floor(Math.random() * 666666);
+  }
+  static slugify(value: string): string {
+    const str = value?.toString()?.trim()?.toLowerCase();
+    return str?.includes(' ') ? str?.replace(/\s+/g, '-') : str;
+  }
+  // ========= from data =============
+  static fromData(values: Record<string, any>): FormData {
+    const formData = new FormData();
+    Object.keys(values).forEach((key) => {
+      const value = values[key];
+      if (Array.isArray(value)) {
+        if (value.every((v) => v instanceof File)) {
+          value.forEach((file: File) => formData.append(key, file));
+        } else {
+          formData.append(key, JSON.stringify(value));
+        }
+      } else if (value instanceof File) {
+        formData.append(key, value);
+      } else if (typeof value === 'object' && value !== null) {
+        formData.append(key, JSON.stringify(value));
+      } else if (value === 'array') {
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
+    });
+    return formData;
+  }
+
+  static imgSource(href: string): string {
+    if (href?.startsWith('https://') || href?.startsWith('http://'))
+      return href;
+    return href ? `${process.env.NEXT_PUBLIC_IMG_URL}/${href}` : '';
+  }
+}
