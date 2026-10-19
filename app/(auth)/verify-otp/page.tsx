@@ -4,9 +4,9 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, Loader2, MailCheck } from "lucide-react";
 import sonner from "@/components/reuseable/sonner";
-import { AuthHeader } from "@/components/common/auth-header";
-import { OtpInput } from "@/components/common/otp-input";
+import { AuthHeader } from "@/components/common/landing/auth-header";
 import { Button } from "@/components/ui";
+import { OtpInput } from "@/components/common/landing/otp-input";
 
 const RESEND_SECONDS = 60;
 

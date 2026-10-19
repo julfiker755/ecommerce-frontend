@@ -1,14 +1,13 @@
 "use client";
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FieldValues, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, KeyRound, Loader2, Mail } from "lucide-react";
+import {KeyRound, Loader2, Mail } from "lucide-react";
 import Form from "@/components/reuseable/from";
 import { FromInput } from "@/components/reuseable/from-input";
 import sonner from "@/components/reuseable/sonner";
-import { AuthHeader } from "@/components/common/auth-header";
+import { AuthHeader } from "@/components/common/landing/auth-header";
 import { Button } from "@/components/ui";
 import { forgot_Pass } from "@/schema";
 
@@ -53,15 +52,6 @@ export default function ForgotPassword() {
           {isLoading ? "Sending code…" : "Send Verification Code"}
         </Button>
       </Form>
-
-      <Button
-        variant="ghost"
-        className="mt-6 w-full text-muted-foreground"
-        nativeButton={false}
-        render={<Link href="/login" />}
-      >
-        <ArrowLeft /> Back to login
-      </Button>
     </>
   );
 }

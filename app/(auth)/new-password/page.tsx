@@ -8,8 +8,7 @@ import { ArrowLeft, Loader2, Lock, ShieldCheck } from "lucide-react";
 import Form from "@/components/reuseable/from";
 import { FromInput } from "@/components/reuseable/from-input";
 import sonner from "@/components/reuseable/sonner";
-import { AuthHeader } from "@/components/common/auth-header";
-import { PasswordStrength } from "@/components/common/password-strength";
+import { AuthHeader } from "@/components/common/landing/auth-header";
 import { Button } from "@/components/ui";
 import { new_Pass } from "@/schema";
 
@@ -59,7 +58,6 @@ function NewPasswordChild() {
             eye
             icon={<Lock className="size-4.5" />}
           />
-          <PasswordStrength password={password} />
         </div>
         <FromInput
           name="password_confirmation"
@@ -74,15 +72,6 @@ function NewPasswordChild() {
           {isLoading ? "Updating…" : "Update Password"}
         </Button>
       </Form>
-
-      <Button
-        variant="ghost"
-        className="mt-6 w-full text-muted-foreground"
-        nativeButton={false}
-        render={<Link href="/login" />}
-      >
-        <ArrowLeft /> Back to login
-      </Button>
     </>
   );
 }

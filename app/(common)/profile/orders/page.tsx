@@ -1,5 +1,5 @@
 import NavTitle from '@/components/reuseable/nav-title';
-import { OrderList } from '@/components/common/order-list';
+import { OrderList } from '@/components/common/landing/order-list';
 import { orders } from '@/lib/data';
 
 export default function OrdersPage() {

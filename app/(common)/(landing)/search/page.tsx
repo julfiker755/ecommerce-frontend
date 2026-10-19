@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { ChevronDown, ChevronLeft, ChevronRight, SlidersHorizontal, X } from 'lucide-react';
-import { ProductCard } from '@/components/common/product-card';
+import { ProductCard } from '@/components/common/landing/product-card';
 import { Button, Checkbox, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
 import { categories, products } from '@/lib/data';
 import { cn } from '@/lib/utils';

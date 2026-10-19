@@ -7,7 +7,6 @@ import Form from '@/components/reuseable/from';
 import { FromInput } from '@/components/reuseable/from-input';
 import sonner from '@/components/reuseable/sonner';
 import { Button } from '@/components/ui/button';
-import { PasswordStrength } from '../password-strength';
 import { change_Pass } from '@/schema';
 
 const inputStyle = 'h-11 border-input bg-card text-foreground';
@@ -65,7 +64,6 @@ export function ChangePassword() {
             className={inputStyle}
             stylelabel={labelStyle}
           />
-          <PasswordStrength password={password} />
         </div>
         <FromInput
           name="password_confirmation"

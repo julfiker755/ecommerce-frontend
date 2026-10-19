@@ -11,9 +11,6 @@ import { FromTextArea } from '@/components/reuseable/from-textarea';
 import sonner from '@/components/reuseable/sonner';
 import { CheckoutCard } from '../checkout-card';
 import { CartItem } from '../cart-item';
-import { PaymentMethod } from '../payment-method';
-import { OrderSummary } from '../order-summary';
-import { OrderSuccess, type PlacedOrder } from '../order-success';
 import { useCart } from '@/context/cart';
 import {
   deliveryCharge,
@@ -22,6 +19,9 @@ import {
   type PaymentMethod as Method,
 } from '@/lib/data';
 import { helpers } from '@/lib/helpers';
+import { PaymentMethod } from '../payment-method';
+import { OrderSummary } from '../order-summary';
+import { OrderSuccess, PlacedOrder } from '../order-success';
 
 const defaultValues = {
   name: '',

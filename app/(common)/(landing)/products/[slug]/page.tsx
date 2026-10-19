@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Breadcrumb } from '@/components/common/breadcrumb';
-import { ProductDetails } from '@/components/common/product-details';
-import { ProductTabs } from '@/components/common/product-tabs';
-import { ProductSection } from '@/components/common/product-section';
+import { Breadcrumb } from '@/components/common/landing/breadcrumb';
+import { ProductTabs } from '@/components/common/landing/product-tabs';
+import { ProductSection } from '@/components/common/landing/product-section';
 import { getCategory, getProductBySlug, getRelatedProducts, products, siteInfo } from '@/lib/data';
+import { ProductDetails } from '@/components/common/landing/product-details';
 
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));

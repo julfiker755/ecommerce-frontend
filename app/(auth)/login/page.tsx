@@ -8,7 +8,7 @@ import { Loader2, Lock, Mail } from "lucide-react";
 import Form from "@/components/reuseable/from";
 import { FromInput } from "@/components/reuseable/from-input";
 import sonner from "@/components/reuseable/sonner";
-import { AuthHeader } from "@/components/common/auth-header";
+import { AuthHeader } from "@/components/common/landing/auth-header";
 import { Button, Checkbox } from "@/components/ui";
 import { sign_In } from "@/schema";
 

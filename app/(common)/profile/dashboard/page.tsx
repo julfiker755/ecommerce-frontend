@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, CircleCheck, CircleX, PackageCheck, Wallet } from 'lucide-react';
 import NavTitle from '@/components/reuseable/nav-title';
-import { OrderList } from '@/components/common/order-list';
+import { OrderList } from '@/components/common/landing/order-list';
 import { Button } from '@/components/ui/button';
 import { orders, orderTotal } from '@/lib/data';
 import { helpers } from '@/lib/helpers';

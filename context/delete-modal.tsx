@@ -108,7 +108,7 @@ export const ConfirmDialogProvider = ({
           )}
         >
           <AlertDialogHeader className="place-items-center! text-center!">
-            <AlertDialogTitle className="w-full font-sans text-center text-fig-secondery">
+            <AlertDialogTitle className="w-full font-sans capitalize text-center text-fig-secondery">
               <ul className="mx-auto flex flex-col justify-center">
                 {/* Icon */}
                 <li className="flex justify-center mb-2">

@@ -1,6 +1,6 @@
 import NavTitle from '@/components/reuseable/nav-title';
-import { ProfileInfo } from '@/components/common/profile-info';
-import { ChangePassword } from '@/components/common/change-password';
+import { ChangePassword } from '@/components/common/landing/change-password';
+import { ProfileInfo } from '@/components/common/landing/profile-info';
 
 export default function ProfilePage() {
   return (

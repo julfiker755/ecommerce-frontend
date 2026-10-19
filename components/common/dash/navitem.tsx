@@ -26,7 +26,13 @@ interface NavItemProps {
 
 export default function NavItem({ item }: NavItemProps) {
   const pathname = usePathname();
-  const [activeSubmenu, setActiveSubmenu] = useState<number | null>(null);
+  // open the parent whose submenu contains the current page
+  const [activeSubmenu, setActiveSubmenu] = useState<number | null>(() => {
+    const index = item?.findIndex(({ submenu }) =>
+      submenu?.some(({ to }) => to && pathname.startsWith(to))
+    );
+    return index >= 0 ? index : null;
+  });
   const menuRefs = useRef<(HTMLUListElement | null)[]>([]);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
@@ -52,7 +58,7 @@ export default function NavItem({ item }: NavItemProps) {
 
   return (
     <ul className="space-y-2 mt-3">
-      {item.map(({ to, label, icon, act_io, submenu }, parentIndex) => (
+      {item && item?.map(({ to, label, icon, act_io, submenu }, parentIndex) => (
         <li key={parentIndex} className="group">
           {to ? (
             <Link
@@ -72,7 +78,11 @@ export default function NavItem({ item }: NavItemProps) {
             </Link>
           ) : (
             <div
-              onClick={() => handleSubmenuToggle(parentIndex)}
+              onClick={(e) => {
+                // keep the mobile sidebar open while toggling a submenu
+                e.stopPropagation();
+                handleSubmenuToggle(parentIndex);
+              }}
               className="flex items-center px-3 py-2 justify-between cursor-pointer"
             >
               <span className="flex items-center gap-x-2 text-gray font-medium">
@@ -99,7 +109,7 @@ export default function NavItem({ item }: NavItemProps) {
                 <li
                   key={subIndex}
                   className={`rounded-md pl-6 hover:bg-primary hover:text-white text-gray font-medium border-l-5 border-transparent py-2
-                    ${to && isActive(to)
+                    ${to && pathname === to
                       ? 'border-l-5! border-figma-primary! bg-primary text-white!'
                       : ''
                     }`}

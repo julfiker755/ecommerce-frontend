@@ -9,8 +9,7 @@ import Form from "@/components/reuseable/from";
 import { FromInput } from "@/components/reuseable/from-input";
 import { ErrorInput } from "@/components/reuseable/errors";
 import sonner from "@/components/reuseable/sonner";
-import { AuthHeader } from "@/components/common/auth-header";
-import { PasswordStrength } from "@/components/common/password-strength";
+import { AuthHeader } from "@/components/common/landing/auth-header";
 import { Button, Checkbox } from "@/components/ui";
 import { sign_Up } from "@/schema";
 
@@ -96,7 +95,6 @@ export default function Register() {
             className={inputStyle}
             stylelabel={labelStyle}
           />
-          <PasswordStrength password={password} />
         </div>
         <FromInput
           label="Confirm password"

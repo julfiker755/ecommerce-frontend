@@ -1,9 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Zap } from 'lucide-react';
-import { ProductCard } from '../product-card';
-import { SectionTitle } from '../section-title';
 import type { Product } from '@/lib/data';
+import { SectionTitle } from '../section-title';
+import { ProductCard } from '../product-card';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 

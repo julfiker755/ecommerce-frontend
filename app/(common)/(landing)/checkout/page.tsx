@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { Breadcrumb } from '@/components/common/breadcrumb';
-import { Checkout } from '@/components/common/checkout';
+import { Breadcrumb } from '@/components/common/landing/breadcrumb';
+import { Checkout } from '@/components/common/landing/checkout';
 import { siteInfo } from '@/lib/data';
 
 export const metadata: Metadata = {

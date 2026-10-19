@@ -2,20 +2,21 @@
 import { useRouter } from 'next/navigation';
 import { LogOut } from 'lucide-react';
 import NavItem from './navitem';
-import { BrandLogo } from '../brand-logo';
 import sonner from '@/components/reuseable/sonner';
 import { helpers } from '@/lib/helpers';
 import { authKey } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { profileLinks } from './navdata';
+import { BrandLogo } from '../landing/brand-logo';
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
+  link:any;
 }
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
+export default function Sidebar({ sidebarOpen, setSidebarOpen,link }: SidebarProps) {
   const router = useRouter();
 
   const handleLogout = () => {
@@ -43,7 +44,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
 
         <div className="flex flex-1 flex-col justify-between overflow-y-auto px-4 pb-4 scrollbar-hide">
           <nav onClick={() => setSidebarOpen(false)}>
-            <NavItem item={profileLinks} />
+            <NavItem item={link || [] as any} />
           </nav>
 
           <div className="border-t border-border pt-4">

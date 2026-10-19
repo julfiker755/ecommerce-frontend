@@ -1,12 +1,12 @@
-import { HeroBanner } from '@/components/common/hero-banner';
-import { FeatureStrip } from '@/components/common/feature-strip';
-import { CategorySlider } from '@/components/common/category-slider';
-import { FlashSale } from '@/components/common/flash-sale';
-import { ProductSection } from '@/components/common/product-section';
-import { PromoBanner } from '@/components/common/promo-banner';
-import { PopularProducts } from '@/components/common/popular-products';
-import { Newsletter } from '@/components/common/newsletter';
+import { HeroBanner } from '@/components/common/landing/hero-banner';
+import { CategorySlider } from '@/components/common/landing/category-slider';
+import { ProductSection } from '@/components/common/landing/product-section';
+import { PromoBanner } from '@/components/common/landing/promo-banner';
+import { PopularProducts } from '@/components/common/landing/popular-products';
+import { Newsletter } from '@/components/common/landing/newsletter';
 import { getProductsByCategory, products } from '@/lib/data';
+import { FeatureStrip } from '@/components/common/landing/feature-strip';
+import { FlashSale } from '@/components/common/landing/flash-sale';
 
 export default function HomePage() {
   const flashDeals = products.filter((p) => p.oldPrice).slice(0, 5);
