@@ -54,7 +54,7 @@ export function Modal({
       >
         <DialogHeader className={cn('p-4 gap-1', headerStyle)}>
           <DialogTitle
-            className={cn('font-bold text-xl text-black mb-0', titleStyle)}
+            className={cn('font-bold capitalize text-xl text-black mb-0', titleStyle)}
           >
             {title}
           </DialogTitle>

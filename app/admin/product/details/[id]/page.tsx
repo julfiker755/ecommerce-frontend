@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { Package, Star } from "lucide-react";
@@ -105,6 +105,14 @@ const stockLabel = (status: string) => (status === "in_stock" ? "In Stock" : "Ou
 const money = (value: string) => (value ? helpers.currency(Number(value)) : "—");
 
 export default function ProductDetailsPage() {
+  return (
+    <Suspense>
+      <ProductDetails />
+    </Suspense>
+  );
+}
+
+function ProductDetails() {
   const { id } = useParams();
   const [activeImage, setActiveImage] = useState(0);
 

@@ -103,3 +103,8 @@ export const product_Create = z.object({
     )
     .optional(),
 });
+
+//  === order_Cancel ==
+export const order_Cancel = z.object({
+  reason: z.string().trim().nonempty("Cancellation reason is required"),
+});

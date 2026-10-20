@@ -1,4 +1,5 @@
 'use client';
+import { Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { LogOut } from 'lucide-react';
 import NavItem from './navitem';
@@ -43,7 +44,9 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen,link }: SidebarPro
 
         <div className="flex flex-1 flex-col justify-between overflow-y-auto px-4 pb-4 scrollbar-hide">
           <nav onClick={() => setSidebarOpen(false)}>
-            <NavItem item={link || [] as any} />
+            <Suspense>
+              <NavItem item={link || [] as any} />
+            </Suspense>
           </nav>
 
           <div className="border-t border-border pt-4">
