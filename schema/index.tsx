@@ -77,3 +77,29 @@ export const change_Pass = z
     message: "New password must be different",
     path: ["password"],
   });
+
+//  === product_Create ==
+export const product_Create = z.object({
+  name: z.string().trim().nonempty("Product name is required"),
+  short_description: z.string().trim().nonempty("Short description is required"),
+  category: z.string().nonempty("Category is required"),
+  brand: z.string().nonempty("Brand is required"),
+  description: z.string().optional(),
+  purchase_price: z.string().nonempty("Purchase price is required"),
+  selling_price: z.string().nonempty("Selling price is required"),
+  offer_price: z.string().optional(),
+  stock: z.string().nonempty("Stock quantity is required"),
+  stock_status: z.string().nonempty("Stock status is required"),
+  status: z.string().nonempty("Status is required"),
+  variants: z
+    .array(
+      z.object({
+        purchase_price: z.string().optional(),
+        selling_price: z.string().optional(),
+        offer_price: z.string().optional(),
+        stock: z.string().optional(),
+        stock_status: z.string().optional(),
+      })
+    )
+    .optional(),
+});

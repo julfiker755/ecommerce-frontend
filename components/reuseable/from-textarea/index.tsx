@@ -32,14 +32,16 @@ export function FromTextArea({
       render={({ field, fieldState: { error } }) => (
         <div>
           {label && (
-            <Label className={cn('mb-1 text-base text-black', stylelabel)}>
+            <Label className={cn('mb-1 text-base! font-medium text-black', stylelabel)}>
               {label}
             </Label>
           )}
           <div className="relative">
             <Textarea
               className={cn(
-                'min-h-16  border! text-black  border-border w-full placeholder:text-muted-foreground!  resize-none  field-sizing-content rounded-sm   pl-4 pr-3 text-sm',
+                'min-h-16 w-full resize-none field-sizing-content rounded-lg border border-slate-300 bg-white pl-4 pr-3 text-sm text-black shadow-xs placeholder:text-slate-400 hover:border-slate-400 focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/15',
+                error &&
+                  'border-[#f73f4e] focus-visible:border-[#f73f4e] focus-visible:ring-[#f73f4e]/15',
                 className
               )}
               placeholder={placeholder}

@@ -1,16 +1,21 @@
-'use client';
-import Link from 'next/link';
-import { Menu, Store } from 'lucide-react';
-import { useTitle } from '@/context/title';
-import { Button } from '@/components/ui/button';
-
+"use client";
+import Link from "next/link";
+import { Menu, Store } from "lucide-react";
+import { useTitle } from "@/context/title";
+import { Button } from "@/components/ui/button";
+import Notification from "./notification";
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
+  admin?: boolean;
 }
 
-export default function Navber({ sidebarOpen, setSidebarOpen }: SidebarProps) {
+export default function Navber({
+  sidebarOpen,
+  setSidebarOpen,
+  admin = false,
+}: SidebarProps) {
   const { title, subtitle } = useTitle();
 
   return (
@@ -32,20 +37,41 @@ export default function Navber({ sidebarOpen, setSidebarOpen }: SidebarProps) {
             <Menu />
           </Button>
           <div className="min-w-0">
-            <h1 className="truncate text-lg font-semibold text-foreground sm:text-xl">{title}</h1>
-            {subtitle && <p className="hidden truncate text-sm text-muted-foreground sm:block">{subtitle}</p>}
+            <h1 className="truncate text-lg font-semibold text-foreground sm:text-xl">
+              {title}
+            </h1>
+            {subtitle && (
+              <p className="hidden truncate text-sm text-muted-foreground sm:block">
+                {subtitle}
+              </p>
+            )}
           </div>
         </div>
 
-        {/* right side */}
-        <div className="flex shrink-0 items-center gap-3">
-          <Button variant="soft" size="sm" className="hidden sm:inline-flex" nativeButton={false} render={<Link href="/" />}>
-            <Store /> Shop
-          </Button>
-          <span className="grid size-9 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-             u
-          </span>
-        </div>
+        {/* =========== user side ============== */}
+        {!admin && (
+          <div className="flex shrink-0 items-center gap-3">
+            <Button
+              variant="soft"
+              size="sm"
+              className="hidden sm:inline-flex"
+              nativeButton={false}
+              render={<Link href="/" />}
+            >
+              <Store /> Shop
+            </Button>
+
+            <span className="grid size-9 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
+              u
+            </span>
+          </div>
+        )}
+        {/* =============== admin site ================== */}
+        {admin && (
+          <div>
+            <Notification />
+          </div>
+        )}
       </header>
     </div>
   );

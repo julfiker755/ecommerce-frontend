@@ -1,5 +1,5 @@
 'use client';
-import { ChevronDown, CircleAlert, Minus, Plus } from 'lucide-react';
+import {CircleAlert} from 'lucide-react';
 import {
   Controller,
   useFormContext,
@@ -64,7 +64,7 @@ export function InputSelectField({
           {!matching && (
             <Label
               className={cn(
-                'text-black text-base font-medium  mb-1',
+                'text-black text-base! font-medium  mb-1',
                 stylelabel
               )}
             >
@@ -74,7 +74,9 @@ export function InputSelectField({
           <Select onValueChange={onChange} value={value ? String(value) : ''}>
             <SelectTrigger
               className={cn(
-                'w-full rounded-md bg-admin-sideber border-border   py-[22px] cursor-pointer shadow-none',
+                'w-full cursor-pointer rounded-lg border border-slate-300 bg-white pl-4 pr-3 text-black shadow-xs transition-[color,box-shadow,border-color] data-[size=default]:h-11 hover:border-slate-400 focus-visible:border-primary focus-visible:ring-3 focus-visible:ring-primary/15 data-popup-open:border-primary data-popup-open:ring-3 data-popup-open:ring-primary/15 [&_svg:not([class*=size-])]:size-4',
+                error &&
+                  'border-[#f73f4e] focus-visible:border-[#f73f4e] focus-visible:ring-[#f73f4e]/15 data-popup-open:border-[#f73f4e] data-popup-open:ring-[#f73f4e]/15',
                 className
               )}
             >
@@ -84,18 +86,18 @@ export function InputSelectField({
                     {selectedLabel(String(value))}
                   </span>
                 ) : (
-                  <span className="text-muted-foreground">{placeholder}</span>
+                  <span className="text-slate-400">{placeholder}</span>
                 )}
               </SelectValue>
             </SelectTrigger>
             <SelectContent
-              className={cn('rounded-md bg-background text-black  p-0', selectStyle)}
+              className={cn('rounded-lg border border-slate-200 bg-white text-black p-1 shadow-lg', selectStyle)}
             >
               <SelectGroup className="p-0 m-0">
                 {items?.map((item, index) => (
                   <SelectItem
                     className={cn(
-                      'border-b last:border-b-0 py-3 pl-4 text-black rounded-none',
+                      'cursor-pointer rounded-md py-2.5 pl-3 text-black hover:bg-slate-50',
                       itemStyle
                     )}
                     key={index}

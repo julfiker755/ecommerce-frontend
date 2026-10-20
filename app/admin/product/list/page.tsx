@@ -188,7 +188,7 @@ const ProductListPage = () => {
             <SearchBox onChange={(val) => console.log(val)} />
           </div>
 
-          <Link href="/admin/product/add">
+          <Link href="/admin/product/create">
             <Button className="px-5">
               <Plus size={18} className="mr-1" /> Add Product
             </Button>
@@ -234,11 +234,11 @@ const ProductListPage = () => {
 
                 <TableCell>
                   <ul className="flex items-center gap-2">
-                    <li>
+                    {/* <li>
                       <Link href={`/admin/order/${item.id}`}>
                         <OrderBtn />
                       </Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link
                         href={`/admin/product/details/${item.id}`}
