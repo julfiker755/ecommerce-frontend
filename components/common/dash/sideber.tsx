@@ -7,7 +7,6 @@ import { helpers } from '@/lib/helpers';
 import { authKey } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { profileLinks } from './navdata';
 import { BrandLogo } from '../landing/brand-logo';
 
 interface SidebarProps {

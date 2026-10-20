@@ -1,11 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Banknote, MapPin, Phone, UserRound } from 'lucide-react';
+import { Banknote, MapPin, Phone, UserRound } from 'lucide-react';
 import NavTitle from '@/components/reuseable/nav-title';
-import { OrderStatusBadge } from '@/components/common/order-status-badge';
-import { OrderTracker } from '@/components/common/order-tracker';
-import { Button } from '@/components/ui/button';
+import { OrderStatusBadge } from '@/components/common/landing/order-status-badge';
+import { OrderTracker } from '@/components/common/landing/order-tracker';
 import { getOrder, orders, orderSubtotal, orderTotal, siteInfo, userProfile } from '@/lib/data';
 import { helpers } from '@/lib/helpers';
 

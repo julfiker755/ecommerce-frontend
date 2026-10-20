@@ -13,3 +13,4 @@ export * from "./skeleton";
 export * from "./checkbox";
 export * from "./radio-group";
 export * from "./checkbox";
+export * from "./badge";

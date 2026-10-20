@@ -41,18 +41,20 @@ export const adminLinks = [
         label: 'List Product',
       },
       {
-        to: '/admin/category/main-category',
-        label: 'Main Category',
-      },
-      {
-        to: '/admin/category/sub-category',
-        label: 'Sub Category',
+        to: '/admin/product/categories',
+        label: 'Category',
       },
       {
         to: '/admin/brand',
         label: 'Brands',
       },
     ],
+  },
+  {
+    label: 'Users',
+    icon: 'users',
+    act_io: 'users_i',
+    to: '/admin/user/list',
   },
   {
     label: 'Recent Order',
