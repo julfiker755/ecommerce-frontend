@@ -24,7 +24,7 @@ export const adminLinks = [
     label: "Dashboard",
     icon: "dashboard",
     act_io: "dashboard_i",
-    to: "/admin/dashboard",
+    to: "/admin",
   },
   {
     label: "Products",
@@ -59,24 +59,36 @@ export const adminLinks = [
     label: "Recent Order",
     icon: "recentorder",
     act_io: "recentorder_i",
-    to: "/admin/order/recent-order",
+    to: "/admin/order",
   },
   {
     label: "Settings",
     icon: "settings",
     act_io: "settings_i",
     submenu: [
-      {
-        to: "/admin/settings/social-media",
-        icon: "social",
-        act_io: "social_i",
-        label: "Social Media",
-      },
+      // {
+      //   to: "/admin/settings/social-media",
+      //   icon: "social",
+      //   act_io: "social_i",
+      //   label: "Social Media",
+      // },
       {
         to: "/admin/settings/admin-list",
         icon: "users",
         act_io: "users_i",
         label: "Admin List",
+      },
+      {
+        to: "/admin/settings/privacy-policy",
+        icon: "shield",
+        act_io: "shield_i",
+        label: "Privacy Policy",
+      },
+       {
+        to: "/admin/settings/privacy-policy",
+        icon: "shield",
+        act_io: "shield_i",
+        label: "Terms & Conditions",
       },
     ],
   },
