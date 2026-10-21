@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
@@ -28,11 +29,7 @@ const paymentLabel = {
   online: "Card / Online",
 };
 
-export default function OrderDetailsPage({
-  admin = false,
-}: {
-  admin?: boolean;
-}) {
+function OrderDetailsPage({ admin }: { admin?: boolean }) {
   const { id } = useParams();
   const order = getOrder(id as any);
   if (!order) notFound();
@@ -191,5 +188,17 @@ export default function OrderDetailsPage({
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OrderDetailsParent({
+  admin = false,
+}: {
+  admin?: boolean;
+}) {
+  return (
+    <Suspense>
+      <OrderDetailsPage admin={admin} />
+    </Suspense>
   );
 }

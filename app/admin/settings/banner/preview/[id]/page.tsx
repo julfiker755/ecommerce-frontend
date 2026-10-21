@@ -1,7 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound, useParams, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import { notFound, useParams } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { toneStyles } from "@/components/common/landing/hero-banner";
 import { Button } from "@/components/ui";
@@ -9,7 +10,15 @@ import { heroSlides } from "@/lib/data";
 import { cn } from "@/lib/utils";
 import NavTitle from "@/components/reuseable/nav-title";
 
-export default function BannerPreview() {
+export default function BannerPreviewPage() {
+  return (
+    <Suspense>
+      <BannerPreview />
+    </Suspense>
+  );
+}
+
+function BannerPreview() {
   const {id} = useParams();
   // TODO: replace with banner details API
   const slide = heroSlides.find((s) => String(s.id) === id);
