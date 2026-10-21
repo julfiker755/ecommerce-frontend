@@ -15,7 +15,7 @@ export default function Dashboard() {
     { icon: PackageCheck, label: 'Total orders', value: orders.length, tone: 'bg-secondary text-primary' },
     { icon: CircleCheck, label: 'Delivered', value: delivered, tone: 'bg-emerald-50 text-emerald-600' },
     { icon: CircleX, label: 'Cancelled', value: cancelled, tone: 'bg-red-50 text-red-600' },
-    { icon: Wallet, label: 'Total spent', value: helpers.currency(spent), tone: 'bg-brand-soft text-accent-foreground' },
+    { icon: Wallet, label: 'Total spent', value: helpers.currency(spent), tone: 'bg-accent/10 text-accent' },
   ];
 
   return (

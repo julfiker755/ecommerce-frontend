@@ -31,9 +31,10 @@ interface StatusChangeProps {
   id: string;
   status: OrderStatus;
   className?: string;
+  rootStyle?:any;
 }
 
-export default function StatusChange({ id, status, className }: StatusChangeProps) {
+export default function StatusChange({ id, status, className, rootStyle }: StatusChangeProps) {
   const [value, setValue] = useState<string>(status);
   const [isOpen, setIsOpen] = useState(false);
   const form = useForm({
@@ -63,7 +64,7 @@ export default function StatusChange({ id, status, className }: StatusChangeProp
   };
 
   return (
-    <>
+    <div className={cn("shrink-0", rootStyle)}>
       <Select items={statusOptions} value={value} onValueChange={handleChange}>
         <SelectTrigger
           className={cn(
@@ -107,6 +108,6 @@ export default function StatusChange({ id, status, className }: StatusChangeProp
           </div>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 }

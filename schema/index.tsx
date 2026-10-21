@@ -108,3 +108,34 @@ export const product_Create = z.object({
 export const order_Cancel = z.object({
   reason: z.string().trim().nonempty("Cancellation reason is required"),
 });
+
+//  === banner_Create ==
+export const banner_Create = z.object({
+  eyebrow: z.string().trim().nonempty("Tag line is required"),
+  title: z.string().trim().nonempty("Title is required"),
+  text: z.string().trim().nonempty("Description is required"),
+  cta: z.string().trim().nonempty("Button text is required"),
+  href: z.string().trim().nonempty("Button link is required"),
+});
+
+//  === flash_Sale_Setting ==
+export const flash_Sale_Setting = z
+  .object({
+    start_at: z.string().nonempty("Start time is required"),
+    end_at: z.string().nonempty("End time is required"),
+    status: z.string().nonempty("Status is required"),
+  })
+  .refine((data) => !data.start_at || !data.end_at || data.end_at > data.start_at, {
+    message: "End time must be after start time",
+    path: ["end_at"],
+  });
+
+//  === flash_Sale_Product ==
+export const flash_Sale_Product = z.object({
+  discount: z
+    .string()
+    .nonempty("Discount is required")
+    .refine((val) => Number(val) > 0 && Number(val) < 100, {
+      message: "Discount must be between 1 and 99",
+    }),
+});

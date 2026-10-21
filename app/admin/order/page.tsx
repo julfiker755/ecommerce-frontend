@@ -265,7 +265,7 @@ const OrderPage = () => {
 
                 <TableCell>
                   <div className="flex items-center">
-                    <StatusChange id={item.id} status={item.status} />
+                    <StatusChange id={item.id} status={item.status} rootStyle="flex items-center" />
                   </div>
                 </TableCell>
 

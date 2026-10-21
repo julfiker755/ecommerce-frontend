@@ -62,32 +62,32 @@ export const adminLinks = [
     to: "/admin/order",
   },
   {
+    label: "Newsletter",
+    icon: "newsletter",
+    act_io: "newsletter_i",
+    to: "/admin/newsletter",
+  },
+  {
+    label: "Flash Sale",
+    icon: "flashsale",
+    act_io: "flashsale_i",
+    to: "/admin/flash-sale",
+  },
+  {
     label: "Settings",
     icon: "settings",
     act_io: "settings_i",
     submenu: [
-      // {
-      //   to: "/admin/settings/social-media",
-      //   icon: "social",
-      //   act_io: "social_i",
-      //   label: "Social Media",
-      // },
       {
-        to: "/admin/settings/admin-list",
-        icon: "users",
-        act_io: "users_i",
-        label: "Admin List",
+        to: "/admin/settings/banner",
+        label: "Banner",
       },
       {
         to: "/admin/settings/privacy-policy",
-        icon: "shield",
-        act_io: "shield_i",
         label: "Privacy Policy",
       },
-       {
-        to: "/admin/settings/privacy-policy",
-        icon: "shield",
-        act_io: "shield_i",
+      {
+        to: "/admin/settings/terms-conditions",
         label: "Terms & Conditions",
       },
     ],

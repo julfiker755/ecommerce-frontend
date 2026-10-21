@@ -8,9 +8,9 @@ import { heroSlides, type HeroSlide } from '@/lib/data';
 import { cn } from '@/lib/utils';
 
 export const toneStyles: Record<HeroSlide['tone'], string> = {
-  emerald: 'from-[oklch(0.94_0.05_160)] via-[oklch(0.97_0.03_150)] to-[oklch(0.99_0.01_120)]',
-  amber: 'from-[oklch(0.94_0.07_80)] via-[oklch(0.97_0.04_85)] to-[oklch(0.99_0.01_95)]',
-  rose: 'from-[oklch(0.93_0.05_25)] via-[oklch(0.97_0.025_40)] to-[oklch(0.99_0.01_80)]',
+  emerald: 'from-[oklch(0.93_0_0)] via-[oklch(0.97_0_0)] to-[oklch(1_0_0)]',
+  amber: 'from-[oklch(0.94_0_0)] via-[oklch(0.975_0_0)] to-[oklch(1_0_0)]',
+  rose: 'from-[oklch(0.92_0_0)] via-[oklch(0.965_0_0)] to-[oklch(1_0_0)]',
 };
 
 export function HeroBanner() {

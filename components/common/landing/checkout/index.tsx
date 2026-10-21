@@ -193,7 +193,7 @@ export function Checkout() {
                 />
               </div>
             </div>
-            <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-accent/50 bg-accent/15 px-3 py-2.5 text-sm text-accent-foreground">
+            <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg border border-accent/30 bg-accent/5 px-3 py-2.5 text-sm text-accent">
               <Truck className="size-4 shrink-0" />
               <span className="font-semibold">Delivery charge:</span>
               <span>

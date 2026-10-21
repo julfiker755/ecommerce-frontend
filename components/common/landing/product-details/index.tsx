@@ -85,7 +85,7 @@ export function ProductDetails({ product }: { product: Product }) {
               {getCategory(product.category)?.name}
             </span>
             {product.badge && (
-              <span className="rounded-full bg-accent/20 px-3 py-1 font-semibold text-accent-foreground">
+              <span className="rounded-full bg-accent/10 px-3 py-1 font-semibold text-accent">
                 {product.badge}
               </span>
             )}
