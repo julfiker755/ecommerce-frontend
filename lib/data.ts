@@ -987,6 +987,14 @@ export const userProfile = {
   },
 };
 
+export const adminProfile = {
+  name: 'Nishaan Super Admin',
+  email: 'admin@nishaans.com',
+  phone: '01710000001',
+  role: 'super_admin' as 'super_admin' | 'admin',
+  joinedAt: '2024-01-08',
+};
+
 export type OrderStatus = 'pending' | 'accepted' | 'packed' | 'shipped' | 'delivered' | 'cancelled';
 
 export const orderSteps: { status: Exclude<OrderStatus, 'cancelled'>; label: string }[] = [

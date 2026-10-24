@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import NavTitle from "@/components/reuseable/nav-title";
-import { TableCell, TableRow } from "@/components/ui";
+import { Badge, TableCell, TableRow } from "@/components/ui";
 import { CustomTable } from "@/components/reuseable/table";
 import { TableNoItem } from "@/components/reuseable/table-no-item";
 import { Pagination } from "@/components/reuseable/pagination";
@@ -11,64 +11,36 @@ import Avatars from "@/components/reuseable/avater";
 import { DeleteBtn, PreviewBtn } from "@/components/reuseable/btn";
 import useConfirmation from "@/context/delete-modal";
 
-const initialUsers = [
-  {
-    id: 1,
-    name: "Rahim Uddin",
-    email: "rahim.uddin@gmail.com",
-    phone: "01712345678",
-    status: "ACTIVE",
-    avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=80",
-  },
-  {
-    id: 2,
-    name: "Karim Hasan",
-    email: "karim.hasan@gmail.com",
-    phone: "01812345678",
-    status: "ACTIVE",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80",
-  },
-  {
-    id: 3,
-    name: "Nusrat Jahan",
-    email: "nusrat.jahan@gmail.com",
-    phone: "01912345678",
-    status: "INACTIVE",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=80",
-  },
-  {
-    id: 4,
-    name: "Tanvir Ahmed",
-    email: "tanvir.ahmed@gmail.com",
-    phone: "01612345678",
-    status: "ACTIVE",
-    avatar:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop&q=80",
-  },
-  {
-    id: 5,
-    name: "Farhana Akter",
-    email: "farhana.akter@gmail.com",
-    phone: "01512345678",
-    status: "ACTIVE",
-    avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop&q=80",
-  },
-  {
-    id: 6,
-    name: "Sakib Hossain",
-    email: "sakib.hossain@gmail.com",
-    phone: "01312345678",
-    status: "INACTIVE",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=80",
-  },
-];
+export type UserRole = "CUSTOMER" | "GUEST";
 
-const UserListPage = () => {
+export type UserItem = {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  role: UserRole;
+  status: "ACTIVE" | "INACTIVE";
+  avatar?: string;
+};
+
+type UserListProps = {
+  title: string;
+  subTitle: string;
+  name: string;
+  users: UserItem[];
+};
+
+const roleVariants: Record<UserRole, "customer" | "guest"> = {
+  CUSTOMER: "customer",
+  GUEST: "guest",
+};
+
+const roleLabels: Record<UserRole, string> = {
+  CUSTOMER: "Customer",
+  GUEST: "Guest",
+};
+
+const UserList = ({ title, subTitle, name, users }: UserListProps) => {
   const { confirm } = useConfirmation();
 
   const handleDelete = async (id: number) => {
@@ -82,14 +54,11 @@ const UserListPage = () => {
     }
   };
 
-  const headers = ["User", "Email", "Phone", "Status", "Action"];
+  const headers = ["User", "Email", "Phone", "Role", "Status", "Action"];
 
   return (
     <div>
-      <NavTitle
-        title="User"
-        subTitle="Manage store customers, contact details, and account status."
-      />
+      <NavTitle title={title} subTitle={subTitle} />
 
       <div className="bg-white border border-gray-200 rounded-lg p-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-5">
@@ -103,7 +72,7 @@ const UserListPage = () => {
           pagination={
             <div className="mt-4">
               <Pagination
-                name="Users"
+                name={name}
                 total={20}
                 page={1}
                 per_page={10}
@@ -112,13 +81,13 @@ const UserListPage = () => {
             </div>
           }
         >
-          {initialUsers.length > 0 ? (
-            initialUsers.slice(0, 10).map((item) => (
+          {users.length > 0 ? (
+            users.slice(0, 10).map((item) => (
               <TableRow key={item.id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <Avatars
-                      src={item.avatar}
+                      src={item.avatar || ""}
                       fallback={item.name}
                       alt={item.name}
                       fallbackStyle="avatar"
@@ -130,6 +99,12 @@ const UserListPage = () => {
                 <TableCell className="text-gray-700">{item.email}</TableCell>
 
                 <TableCell className="text-gray-700">{item.phone}</TableCell>
+
+                <TableCell>
+                  <Badge variant={roleVariants[item.role]}>
+                    {roleLabels[item.role]}
+                  </Badge>
+                </TableCell>
 
                 <TableCell>
                   <span
@@ -160,7 +135,7 @@ const UserListPage = () => {
           ) : (
             <TableNoItem
               colSpan={headers.length}
-              title="No users found"
+              title={`No ${name.toLowerCase()} found`}
               tdStyle="!bg-background"
             />
           )}
@@ -170,4 +145,4 @@ const UserListPage = () => {
   );
 };
 
-export default UserListPage;
+export default UserList;

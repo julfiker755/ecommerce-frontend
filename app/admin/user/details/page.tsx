@@ -33,8 +33,14 @@ import { OrderStatusBadge } from "@/components/common/landing/order-status-badge
 import { orders, orderTotal, userProfile } from "@/lib/data";
 import { helpers } from "@/lib/helpers";
 
+const roleLabels = {
+  customer: "Customer",
+  guest: "Guest",
+};
+
 const user = {
   ...userProfile,
+  role: "customer" as keyof typeof roleLabels,
   status: "ACTIVE",
   emailVerified: true,
   phoneVerified: true,
@@ -134,6 +140,7 @@ const UserDetailsPage = () => {
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-lg font-semibold text-gray-900">{user.name}</h2>
+              <Badge variant={user.role}>{roleLabels[user.role]}</Badge>
               <Badge variant={user.status === "ACTIVE" ? "success" : "secondary"}>
                 {user.status === "ACTIVE" ? "Active" : "Inactive"}
               </Badge>

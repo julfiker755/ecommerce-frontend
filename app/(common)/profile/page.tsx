@@ -4,18 +4,17 @@ import NavTitle from '@/components/reuseable/nav-title';
 import { OrderList } from '@/components/common/landing/order-list';
 import { Button } from '@/components/ui/button';
 import { orders, orderTotal } from '@/lib/data';
-import { helpers } from '@/lib/helpers';
+
 
 export default function Dashboard() {
   const cancelled = orders.filter((o) => o.status === 'cancelled').length;
   const delivered = orders.filter((o) => o.status === 'delivered').length;
-  const spent = orders.filter((o) => o.status !== 'cancelled').reduce((sum, o) => sum + orderTotal(o), 0);
+
 
   const stats = [
     { icon: PackageCheck, label: 'Total orders', value: orders.length, tone: 'bg-secondary text-primary' },
     { icon: CircleCheck, label: 'Delivered', value: delivered, tone: 'bg-emerald-50 text-emerald-600' },
-    { icon: CircleX, label: 'Cancelled', value: cancelled, tone: 'bg-red-50 text-red-600' },
-    { icon: Wallet, label: 'Total spent', value: helpers.currency(spent), tone: 'bg-accent/10 text-accent' },
+    { icon: CircleX, label: 'Cancelled', value: cancelled, tone: 'bg-red-50 text-red-600' }
   ];
 
   return (
@@ -23,7 +22,7 @@ export default function Dashboard() {
       <NavTitle title="Dashboard" subTitle="Overview of your account and recent activity." />
 
       {/* ===== Stats ===== */}
-      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
         {stats.map(({ icon: Icon, label, value, tone }) => (
           <div key={label} className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4">
             <span className={`grid size-11 shrink-0 place-items-center rounded-xl ${tone}`}>

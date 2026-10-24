@@ -139,3 +139,22 @@ export const flash_Sale_Product = z.object({
       message: "Discount must be between 1 and 99",
     }),
 });
+
+//  === admin_Create ==
+export const admin_Create = z.object({
+  name: z.string().trim().nonempty("Full name is required"),
+  email: emailField,
+  phone: z
+    .string()
+    .nonempty("Phone number is required")
+    .regex(/^01[3-9]\d{8}$/, "Enter a valid 11 digit number"),
+  password: passwordField,
+});
+
+//  === admin_Block ==
+export const admin_Block = z.object({
+  reason: z.string().trim().nonempty("Block reason is required"),
+});
+
+//  === admin_Profile ==
+export const admin_Profile = admin_Create.omit({ password: true });

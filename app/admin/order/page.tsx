@@ -13,17 +13,11 @@ import type { OrderStatus } from "@/lib/data";
 import { helpers } from "@/lib/helpers";
 import Link from "next/link";
 
-type OrderType = "login" | "guest";
+type OrderType = "customer" | "guest";
 
-const orderTypes: Record<OrderType, { label: string; className: string }> = {
-  login: {
-    label: "Login User",
-    className: "border-violet-200 bg-violet-50 text-violet-700",
-  },
-  guest: {
-    label: "Guest",
-    className: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  },
+const orderTypes: Record<OrderType, string> = {
+  customer: "Customer",
+  guest: "Guest",
 };
 
 const initialOrders: {
@@ -46,7 +40,7 @@ const initialOrders: {
     total: 2450,
     payment: "bKash",
     status: "pending",
-    type: "login",
+    type: "customer",
   },
   {
     id: "SB10482877",
@@ -68,7 +62,7 @@ const initialOrders: {
     total: 1560,
     payment: "Nagad",
     status: "packed",
-    type: "login",
+    type: "customer",
   },
   {
     id: "SB10482764",
@@ -90,7 +84,7 @@ const initialOrders: {
     total: 1180,
     payment: "Card",
     status: "shipped",
-    type: "login",
+    type: "customer",
   },
   {
     id: "SB10482655",
@@ -112,7 +106,7 @@ const initialOrders: {
     total: 650,
     payment: "bKash",
     status: "delivered",
-    type: "login",
+    type: "customer",
   },
   {
     id: "SB10482541",
@@ -134,7 +128,7 @@ const initialOrders: {
     total: 1340,
     payment: "Card",
     status: "delivered",
-    type: "login",
+    type: "customer",
   },
   {
     id: "SB10482430",
@@ -156,7 +150,7 @@ const initialOrders: {
     total: 420,
     payment: "Cash on Delivery",
     status: "delivered",
-    type: "login",
+    type: "customer",
   },
   {
     id: "SB10482319",
@@ -248,9 +242,7 @@ const OrderPage = () => {
                 </TableCell>
 
                 <TableCell>
-                  <Badge className={orderTypes[item.type].className}>
-                    {orderTypes[item.type].label}
-                  </Badge>
+                  <Badge variant={item.type}>{orderTypes[item.type]}</Badge>
                 </TableCell>
 
                 <TableCell className="text-gray-700">{item.date}</TableCell>

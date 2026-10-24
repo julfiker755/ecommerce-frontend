@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { CircleCheck, Package, Plus, TriangleAlert } from "lucide-react";
 import NavTitle from "@/components/reuseable/nav-title";
-import { Button, TableCell, TableRow } from "@/components/ui";
+import { Badge, Button, TableCell, TableRow } from "@/components/ui";
 import { CustomTable } from "@/components/reuseable/table";
 import { TableNoItem } from "@/components/reuseable/table-no-item";
 import { Pagination } from "@/components/reuseable/pagination";
@@ -12,6 +12,17 @@ import Avatars from "@/components/reuseable/avater";
 import { DeleteBtn, OrderBtn, PreviewBtn } from "@/components/reuseable/btn";
 import useConfirmation from "@/context/delete-modal";
 import sonner from "@/components/reuseable/sonner";
+
+type AdminRole = "super_admin" | "admin";
+
+const roleLabels: Record<AdminRole, string> = {
+  super_admin: "Super Admin",
+  admin: "Admin",
+};
+
+const superAdmin = { name: "Julfiker Ali", email: "julfiker.ali@gmail.com", role: "super_admin" as AdminRole };
+const adminShahriar = { name: "Shahriar Kabir", email: "shahriar.kabir@gmail.com", role: "admin" as AdminRole };
+const adminMim = { name: "Mim Akter", email: "mim.akter@gmail.com", role: "admin" as AdminRole };
 
 const initialProducts = [
   {
@@ -23,6 +34,7 @@ const initialProducts = [
     stock: 5421,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: superAdmin,
     avatar:
       "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=100&auto=format&fit=crop&q=80",
   },
@@ -35,6 +47,7 @@ const initialProducts = [
     stock: 621,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: adminShahriar,
     avatar:
       "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=100&auto=format&fit=crop&q=80",
   },
@@ -47,6 +60,7 @@ const initialProducts = [
     stock: 621,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: adminMim,
     avatar:
       "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=100&auto=format&fit=crop&q=80",
   },
@@ -59,6 +73,7 @@ const initialProducts = [
     stock: 621,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: superAdmin,
     avatar:
       "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=100&auto=format&fit=crop&q=80",
   },
@@ -71,6 +86,7 @@ const initialProducts = [
     stock: 621,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: adminShahriar,
     avatar:
       "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=100&auto=format&fit=crop&q=80",
   },
@@ -83,6 +99,7 @@ const initialProducts = [
     stock: 621,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: adminMim,
     avatar:
       "https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?w=100&auto=format&fit=crop&q=80",
   },
@@ -95,6 +112,7 @@ const initialProducts = [
     stock: 621,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: adminShahriar,
     avatar:
       "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=100&auto=format&fit=crop&q=80",
   },
@@ -107,6 +125,7 @@ const initialProducts = [
     stock: 621,
     status: "ACTIVE",
     date: "2021-10-30",
+    createdBy: superAdmin,
     avatar:
       "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&auto=format&fit=crop&q=80",
   },
@@ -152,7 +171,7 @@ const ProductListPage = () => {
     }
   };
 
-  const headers = ["Product", "Price", "Stock", "Status", "Action"];
+  const headers = ["Product", "Added By", "Price", "Stock", "Status", "Action"];
 
   return (
     <div>
@@ -221,6 +240,24 @@ const ProductListPage = () => {
                       fallbackStyle="avatar"
                     />
                     <span>{item.name}</span>
+                  </div>
+                </TableCell>
+
+                <TableCell>
+                  <div className="flex items-center gap-3">
+                    <Avatars
+                      src=""
+                      fallback={item.createdBy.name}
+                      alt={item.createdBy.name}
+                      className="size-9 2xl:size-9"
+                      fallbackStyle="avatar"
+                    />
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <p className="font-medium text-gray-900">{item.createdBy.name}</p>
+                      </div>
+                      <p className="text-xs text-gray-500">{item.createdBy.email}</p>
+                    </div>
                   </div>
                 </TableCell>
 

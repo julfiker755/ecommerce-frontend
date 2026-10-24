@@ -53,7 +53,16 @@ export const adminLinks = [
     label: "Users",
     icon: "users",
     act_io: "users_i",
-    to: "/admin/user/list",
+    submenu: [
+      {
+        to: "/admin/user/customer",
+        label: "Customer",
+      },
+      {
+        to: "/admin/user/guest",
+        label: "Guest",
+      },
+    ],
   },
   {
     label: "Recent Order",
@@ -81,6 +90,14 @@ export const adminLinks = [
       {
         to: "/admin/settings/banner",
         label: "Banner",
+      },
+      {
+        to: "/admin/settings/admin",
+        label: "Admin List",
+      },
+      {
+        to: "/admin/settings/profile",
+        label: "Profile",
       },
       {
         to: "/admin/settings/privacy-policy",

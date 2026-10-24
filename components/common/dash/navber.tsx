@@ -4,6 +4,7 @@ import { Menu, Store } from "lucide-react";
 import { useTitle } from "@/context/title";
 import { Button } from "@/components/ui/button";
 import Notification from "./notification";
+import AdminProfile from "./admin-profile";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -68,8 +69,9 @@ export default function Navber({
         )}
         {/* =============== admin site ================== */}
         {admin && (
-          <div>
+          <div className="flex shrink-0 items-center gap-3 sm:gap-4">
             <Notification />
+            <AdminProfile />
           </div>
         )}
       </header>
